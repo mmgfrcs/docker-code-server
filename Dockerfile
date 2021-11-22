@@ -1,10 +1,10 @@
 FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 
 # set version label
-ARG BUILD_DATE
-ARG VERSION
-ARG CODE_RELEASE
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+ARG BUILD_DATE=22-11-2021
+ARG VERSION=1.0.0
+ARG CODE_RELEASE=3.12.0
+LABEL build_version="Linuxserver.io (mmgfrcs) version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="aptalca"
 
 # environment settings
@@ -49,7 +49,6 @@ RUN \
   yarn cache clean && \
   echo "**** clean up ****" && \
   apt-get purge --auto-remove -y \
-    build-essential \
     libx11-dev \
     libxkbfile-dev \
     libsecret-1-dev \
@@ -59,6 +58,12 @@ RUN \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
+
+# Go toolchain
+RUN curl -O https://golang.org/dl/go1.17.3.linux-amd64.tar.gz && \ 
+  rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.3.linux-amd64.tar.gz && \
+  export PATH=$PATH:/usr/local/go/bin && \
+  rm go1.17.3.linux-amd64.tar.gz
 
 # add local files
 COPY /root /
