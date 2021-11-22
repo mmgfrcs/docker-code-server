@@ -3,7 +3,7 @@ FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 # set version label
 ARG BUILD_DATE=22-11-2021
 ARG VERSION=1.0.0
-ARG CODE_RELEASE=3.12.0
+ARG CODE_RELEASE=v3.12.0
 LABEL build_version="Linuxserver.io (mmgfrcs) version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="aptalca"
 
